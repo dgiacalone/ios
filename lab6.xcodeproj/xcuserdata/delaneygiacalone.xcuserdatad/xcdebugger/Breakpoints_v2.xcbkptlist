@@ -183,11 +183,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "lab6/HourlyTableViewController.swift"
-            timestampString = "499928188.777899"
+            timestampString = "499933675.078115"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "getHourlyWeather()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "lab6/HourlyTableViewController.swift"
+            timestampString = "499933920.863339"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
             landmarkName = "getHourlyWeather()"
             landmarkType = "7">
          </BreakpointContent>

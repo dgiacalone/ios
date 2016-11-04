@@ -12,7 +12,6 @@ class HourlyTableViewController: UITableViewController {
 
     var hours = [Hour]()
     var daySelected : Int?
-    var indexToSend = 0
     let backgroundColor = UIColor(red: 171/255, green: 219/255, blue: 234/255, alpha: 0.5)
     
     let apiStringHourlyForecast = "https://api.wunderground.com/api/ee93484780c7d874/hourly10day/q/CA/San_Luis_Obispo.json"
@@ -52,9 +51,8 @@ class HourlyTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HourCell", for: indexPath) as! HourCell
         cell.backgroundColor = backgroundColor
-        if hours.count >= indexPath.row {
-            cell.dayLabel.text = hours[indexPath.row].dayOfWeek
-            cell.dateLabel.text = hours[indexPath.row].date
+        if hours.count > indexPath.row {
+            cell.dayLabel.text = "\(hours[indexPath.row].dayOfWeek), \(hours[indexPath.row].date)"
             cell.hourLabel.text = String(hours[indexPath.row].hour)
             cell.windLabel.text = "\(hours[indexPath.row].windSpeed) mph wind"
             cell.tempLabel.text = "\(hours[indexPath.row].temp)°"
@@ -85,7 +83,7 @@ class HourlyTableViewController: UITableViewController {
                 var fcttime = firstHourlyForecast["FCTTIME"] as! [String:AnyObject]
                 let firstHour = Int(fcttime["hour"] as! String)!
                 
-                for index in 0...hourlyForecast.count {
+                for index in 0...hourlyForecast.count-1 {
                     var indexedHour = hourlyForecast[index] as! [String:AnyObject]
                     fcttime = indexedHour["FCTTIME"] as! [String:AnyObject]
                     var thisHour = Int(fcttime["hour"] as! String)!
@@ -93,7 +91,6 @@ class HourlyTableViewController: UITableViewController {
                         count += 1
                     }
                     if count == self.daySelected {
-                        self.indexToSend = index
                         var endCount = 0
                         if count == 0 {
                             endCount = 23-firstHour
