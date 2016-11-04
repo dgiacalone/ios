@@ -11,16 +11,15 @@ import UIKit
 class HourlyTableViewController: UITableViewController {
 
     var hours = [Hour]()
-    
     var daySelected : Int?
+    var indexToSend = 0
+    let backgroundColor = UIColor(red: 171/255, green: 219/255, blue: 234/255, alpha: 0.5)
     
     let apiStringHourlyForecast = "https://api.wunderground.com/api/ee93484780c7d874/hourly10day/q/CA/San_Luis_Obispo.json"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         getHourlyWeather()
-        
-        print("daySelected: \(daySelected)")
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -37,23 +36,22 @@ class HourlyTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return hours.count
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return 150
+        return 110
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HourCell", for: indexPath) as! HourCell
+        cell.backgroundColor = backgroundColor
         if hours.count >= indexPath.row {
             cell.dayLabel.text = hours[indexPath.row].dayOfWeek
             cell.dateLabel.text = hours[indexPath.row].date
@@ -95,6 +93,7 @@ class HourlyTableViewController: UITableViewController {
                         count += 1
                     }
                     if count == self.daySelected {
+                        self.indexToSend = index
                         var endCount = 0
                         if count == 0 {
                             endCount = 23-firstHour
@@ -122,6 +121,13 @@ class HourlyTableViewController: UITableViewController {
                             //get PoP
                             let pop = Int(indexedHour["pop"] as! String)!
                             
+                            //get details
+                            let uvi = Int(indexedHour["uvi"] as! String)!
+                            let heatIndex = indexedHour["heatindex"] as! [String:AnyObject]
+                            let heatIndexEnglish = Int(heatIndex["english"] as! String)!
+                            let windChill = indexedHour["windchill"] as! [String:AnyObject]
+                            let windChillEnglish = Int(windChill["english"] as! String)!
+                            
                             //create hour
                             let newHour = Hour()
                             //newHour.hour = index2
@@ -131,18 +137,18 @@ class HourlyTableViewController: UITableViewController {
                             newHour.windSpeed = windEnglish
                             newHour.temp = tempEnglish
                             newHour.pop = pop
+                            newHour.uvi = uvi
+                            newHour.heatIndex = heatIndexEnglish
+                            newHour.windChill = windChillEnglish
                             self.hours.append(newHour)
                             
                         }
                         break
                     }
-                    
                 }
-                
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
-                
             }
         }
         task.resume()
@@ -192,6 +198,12 @@ class HourlyTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "HourDetails"
+        {
+            let destVC = segue.destination as? HourDetailsViewController
+            //print("okay: \((tableView.indexPathForSelectedRow?.row)!) \(indexToSend)")
+            destVC?.hourSelected = hours[(tableView.indexPathForSelectedRow?.row)!]
+        }
         let backItem = UIBarButtonItem()
         backItem.title = "Back"
         navigationItem.backBarButtonItem = backItem

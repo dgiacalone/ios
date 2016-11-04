@@ -12,7 +12,7 @@ class TableViewController: UITableViewController {
     
     var currentDay = CurrentDay()
     var tenDays = [TenDay]()
-    let color = UIColor(red: 171/255, green: 219/255, blue: 234/255, alpha: 0.5)
+    let backgroundColor = UIColor(red: 171/255, green: 219/255, blue: 234/255, alpha: 0.5)
     
     let apiString10DayForecast = "https://api.wunderground.com/api/ee93484780c7d874/forecast10day/q/CA/San_Luis_Obispo.json"
     let apiStringConditions = "https://api.wunderground.com/api/ee93484780c7d874/conditions/q/CA/San_Luis_Obispo.json"
@@ -50,7 +50,7 @@ class TableViewController: UITableViewController {
         var cell : UITableViewCell
         if indexPath.row == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: "CurrentDayCell", for: indexPath) as! CurrentDayCell
-            cell.backgroundColor = color
+            cell.backgroundColor = backgroundColor
             (cell as! CurrentDayCell).cityLabel.text = currentDay.city
             (cell as! CurrentDayCell).currentConditionsLabel.text = currentDay.currentConditions
             (cell as! CurrentDayCell).dayLabel.text = currentDay.dayofWeek
@@ -68,7 +68,7 @@ class TableViewController: UITableViewController {
         }
         else{
             cell = tableView.dequeueReusableCell(withIdentifier: "OtherDayCell", for: indexPath) as! OtherDayCell
-            cell.backgroundColor = color
+            cell.backgroundColor = backgroundColor
             if tenDays.count >= indexPath.row {
                 (cell as! OtherDayCell).dayLabel.text = tenDays[indexPath.row-1].dayOfWeek
                 (cell as! OtherDayCell).forecastLabel.text = tenDays[indexPath.row-1].forecast

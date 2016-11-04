@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8E0A5A001DC194F600BCAE76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A59FF1DC194F600BCAE76 /* AppDelegate.swift */; };
-		8E0A5A021DC194F600BCAE76 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A5A011DC194F600BCAE76 /* ViewController.swift */; };
+		8E0A5A021DC194F600BCAE76 /* HourDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A5A011DC194F600BCAE76 /* HourDetailsViewController.swift */; };
 		8E0A5A071DC194F700BCAE76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E0A5A061DC194F700BCAE76 /* Assets.xcassets */; };
 		8E0A5A0A1DC194F700BCAE76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E0A5A081DC194F700BCAE76 /* LaunchScreen.storyboard */; };
 		8E0A5A151DC194F700BCAE76 /* lab6Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A5A141DC194F700BCAE76 /* lab6Tests.swift */; };
@@ -44,7 +44,7 @@
 /* Begin PBXFileReference section */
 		8E0A59FC1DC194F600BCAE76 /* lab6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lab6.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E0A59FF1DC194F600BCAE76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8E0A5A011DC194F600BCAE76 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8E0A5A011DC194F600BCAE76 /* HourDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourDetailsViewController.swift; sourceTree = "<group>"; };
 		8E0A5A061DC194F700BCAE76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8E0A5A091DC194F700BCAE76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E0A5A0B1DC194F700BCAE76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 				8E8754511DCAECC000BBB295 /* HourCell.swift */,
 				8E0A5A2F1DC1992700BCAE76 /* CurrentDayCell.swift */,
 				8E0A5A311DC199DC00BCAE76 /* OtherDayCell.swift */,
-				8E0A5A011DC194F600BCAE76 /* ViewController.swift */,
+				8E0A5A011DC194F600BCAE76 /* HourDetailsViewController.swift */,
 				8E8754531DCAF00800BBB295 /* HourlyTableViewController.swift */,
 				8E8754571DCB04B600BBB295 /* Hour.swift */,
 				8E0A5A061DC194F700BCAE76 /* Assets.xcassets */,
@@ -285,7 +285,7 @@
 			files = (
 				8E8754541DCAF00800BBB295 /* HourlyTableViewController.swift in Sources */,
 				8E8754581DCB04B600BBB295 /* Hour.swift in Sources */,
-				8E0A5A021DC194F600BCAE76 /* ViewController.swift in Sources */,
+				8E0A5A021DC194F600BCAE76 /* HourDetailsViewController.swift in Sources */,
 				8E0A5A321DC199DC00BCAE76 /* OtherDayCell.swift in Sources */,
 				8E0A5A361DC1A1E900BCAE76 /* CurrentDay.swift in Sources */,
 				8E0A5A001DC194F600BCAE76 /* AppDelegate.swift in Sources */,
