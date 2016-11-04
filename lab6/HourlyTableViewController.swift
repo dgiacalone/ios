@@ -11,7 +11,6 @@ import UIKit
 class HourlyTableViewController: UITableViewController {
 
     var hours = [Hour]()
-    let hour = Hour()
     
     var daySelected : Int?
     
@@ -19,7 +18,7 @@ class HourlyTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        hours.append(hour)
+        getHourlyWeather()
         
         print("daySelected: \(daySelected)")
 
@@ -81,24 +80,67 @@ class HourlyTableViewController: UITableViewController {
                     print("Caught exception")
                 }
                 
-                /*let dictionary = jsonResponseCurrent?["current_observation"]
-                let displayLocation = dictionary?["display_location"] as? [String: String]
-                let city = displayLocation?["city"]
-                self.currentDay.city = city!
+                var count = 0
+                let hourlyForecast = jsonResponseCurrent?["hourly_forecast"] as! [AnyObject]
+                for index in 0...hourlyForecast.count {
+                    let indexedHour = hourlyForecast[index] as! [String:AnyObject]
+                    let fcttime = indexedHour["FCTTIME"] as! [String:AnyObject]
+                    let hour = Int(fcttime["hour"] as! String)
+                    if hour == 0 {
+                        count += 1
+                    }
+                    if count == self.daySelected {
+                        //var prevIndex = -1
+                        for index2 in 0...23 {
+                            let indexedHour = hourlyForecast[index+index2] as! [String:AnyObject]
+                            let fcttime = indexedHour["FCTTIME"] as! [String:AnyObject]
+                            let thisHour = Int(fcttime["hour"] as! String)!
+                            
+                            //print("prevIndex: \(prevIndex))
+                            //make sure api has no repeats
+                            /*if prevIndex == thisHour {
+                                continue
+                            }*/
+                            //get weekday
+                            let weekdayName = fcttime["weekday_name"] as! String
+                            //get date
+                            let month = fcttime["mon_abbrev"] as! String
+                            let day = fcttime["mday"] as! String
+                            let date = "\(month) \(day)"
+                            //get wind
+                            let wspd = indexedHour["wspd"] as! [String:AnyObject]
+                            let windEnglish = Int(wspd["english"] as! String)!
+                            //get temp
+                            let temp = indexedHour["temp"] as! [String:AnyObject]
+                            let tempEnglish = Int(temp["english"] as! String)!
+                            //get PoP
+                            let pop = Int(indexedHour["pop"] as! String)!
+                            
+                            //create hour
+                            let newHour = Hour()
+                            //newHour.hour = index2
+                            newHour.hour = thisHour
+                            newHour.dayOfWeek = weekdayName
+                            newHour.date = date
+                            newHour.windSpeed = windEnglish
+                            newHour.temp = tempEnglish
+                            newHour.pop = pop
+                            self.hours.append(newHour)
+                            
+                            //prevIndex = thisHour
+                        }
+                        break
+                    }
+                    
+                }
+                /*let first = hourlyForecast[0] as! [String:AnyObject]
+                let fcttime = first["FCTTIME"] as! [String:AnyObject]
+                let firstHour = fcttime["hour"] as! String
+                print("firstHour: \(firstHour)")
                 
-                //get conditions
-                let conditions = dictionary?["weather"] as! String
-                self.currentDay.currentConditions = conditions
-                
-                //get temperature
-                let temp = dictionary?["temp_f"] as! Int
-                self.currentDay.temp = temp
-                
-                //get wind dir/speed
-                let windSpeed = dictionary?["wind_mph"] as! Int
-                self.currentDay.windSpeed = windSpeed
-                let windDir = dictionary?["wind_dir"] as! String
-                self.currentDay.windDirection = windDir*/
+                let currentHoursLeft = 24-Int(firstHour)!
+                let arrayIndex = currentHoursLeft + (self.daySelected!*24)
+                print("arrayIndex \(arrayIndex)")*/
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
