@@ -183,11 +183,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "lab6/HourlyTableViewController.swift"
-            timestampString = "499906802.132472"
+            timestampString = "499911519.109359"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "getHourlyWeather()"
             landmarkType = "7">
          </BreakpointContent>

@@ -82,25 +82,31 @@ class HourlyTableViewController: UITableViewController {
                 
                 var count = 0
                 let hourlyForecast = jsonResponseCurrent?["hourly_forecast"] as! [AnyObject]
+                
+                let firstHourlyForecast = hourlyForecast[0] as! [String:AnyObject]
+                var fcttime = firstHourlyForecast["FCTTIME"] as! [String:AnyObject]
+                let firstHour = Int(fcttime["hour"] as! String)!
+                
                 for index in 0...hourlyForecast.count {
-                    let indexedHour = hourlyForecast[index] as! [String:AnyObject]
-                    let fcttime = indexedHour["FCTTIME"] as! [String:AnyObject]
-                    let hour = Int(fcttime["hour"] as! String)
-                    if hour == 0 {
+                    var indexedHour = hourlyForecast[index] as! [String:AnyObject]
+                    fcttime = indexedHour["FCTTIME"] as! [String:AnyObject]
+                    var thisHour = Int(fcttime["hour"] as! String)!
+                    if thisHour == 0 {
                         count += 1
                     }
                     if count == self.daySelected {
-                        //var prevIndex = -1
-                        for index2 in 0...23 {
-                            let indexedHour = hourlyForecast[index+index2] as! [String:AnyObject]
-                            let fcttime = indexedHour["FCTTIME"] as! [String:AnyObject]
-                            let thisHour = Int(fcttime["hour"] as! String)!
-                            
-                            //print("prevIndex: \(prevIndex))
-                            //make sure api has no repeats
-                            /*if prevIndex == thisHour {
-                                continue
-                            }*/
+                        var endCount = 0
+                        if count == 0 {
+                            endCount = 23-firstHour
+                        }
+                        else {
+                            endCount = 23
+                        }
+                        for index2 in 0...endCount {
+                            indexedHour = hourlyForecast[index+index2] as! [String:AnyObject]
+                            fcttime = indexedHour["FCTTIME"] as! [String:AnyObject]
+                            thisHour = Int(fcttime["hour"] as! String)!
+                        
                             //get weekday
                             let weekdayName = fcttime["weekday_name"] as! String
                             //get date
@@ -127,20 +133,11 @@ class HourlyTableViewController: UITableViewController {
                             newHour.pop = pop
                             self.hours.append(newHour)
                             
-                            //prevIndex = thisHour
                         }
                         break
                     }
                     
                 }
-                /*let first = hourlyForecast[0] as! [String:AnyObject]
-                let fcttime = first["FCTTIME"] as! [String:AnyObject]
-                let firstHour = fcttime["hour"] as! String
-                print("firstHour: \(firstHour)")
-                
-                let currentHoursLeft = 24-Int(firstHour)!
-                let arrayIndex = currentHoursLeft + (self.daySelected!*24)
-                print("arrayIndex \(arrayIndex)")*/
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
